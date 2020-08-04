@@ -1,6 +1,13 @@
 import React, { Component } from 'react'
 import { Platform, Image, ScrollView, Text, View, TouchableOpacity, TouchableWithoutFeedback, StyleSheet } from 'react-native'
 
+const HIT_SLOP = {
+  top: 4,
+  bottom: 4,
+  left: 4,
+  right: 4,
+}
+
 class ImageItem extends Component {
   render() {
     let { image } = this.props
@@ -144,7 +151,7 @@ class Dots extends Component {
     return (
       <View style={styles.dotsWrapper}>
         {data.map(({ key, active }) => (
-          <TouchableOpacity onPress={this.handlePress(key)} hitSlop={5}>
+          <TouchableOpacity onPress={this.handlePress(key)} hitSlop={HIT_SLOP}>
             <View
               style={[
                 styles.dot,

@@ -48,37 +48,54 @@ class Images extends Component {
   }
 
   render() {
-    let { images, containerWidth, containerHeight, activeColor, inactiveColor } = this.props
+    let {
+      images,
+      containerWidth,
+      containerHeight,
+      activeColor,
+      inactiveColor,
+      editor,
+      paddingBottom,
+    } = this.props
+
     let { activeIndex } = this.state
 
-    let wrapperStyles = { width: images.length * containerWidth }
+    let wrapperStyles = {
+      width: images.length * containerWidth,
+    }
 
     let innerWrapper = {
       height: containerHeight,
     }
 
+    let scrollViewStyles = { paddingBottom }
+
     return (
-      <View style={styles.scrollViewWrapper}>
-        <ScrollView
-          horizontal
-          pagingEnabled
-          style={styles.scrollView}
-          ref={this.scrollViewRef}
-          onScroll={this.handleScroll}
-          scrollEventThrottle={50}
-          showsHorizontalScrollIndicator={false}
-        >
-          <View style={[styles.imageContainer, wrapperStyles]}>
-            {images.map(({ id, image }) => (
-              <View style={[styles.imageWrapper, innerWrapper]}>
-                <ImageItem
-                  key={id}
-                  image={image}
-                />
-              </View>
-            ))}
-          </View>
-        </ScrollView>
+      <View style={[styles.scrollViewWrapper, scrollViewStyles]}>
+        {editor ? (
+          <View style={styles.placeholder} />
+        ) : (
+          <ScrollView
+            horizontal
+            pagingEnabled
+            style={[styles.scrollView]}
+            ref={this.scrollViewRef}
+            onScroll={this.handleScroll}
+            scrollEventThrottle={50}
+            showsHorizontalScrollIndicator={false}
+          >
+            <View style={[styles.imageContainer, wrapperStyles]}>
+              {!editor && images.map(({ id, image }) => (
+                <View style={[styles.imageWrapper, innerWrapper]}>
+                  <ImageItem
+                    key={id}
+                    image={image}
+                  />
+                </View>
+              ))}
+            </View>
+          </ScrollView>
+        )}
         <Dots
           count={images.length}
           activeIndex={activeIndex}
@@ -155,10 +172,6 @@ class ImageSlider extends Component {
     const { images, dots, editor } = this.props
     const { activeColor, inactiveColor, position: dotPosition } = dots
 
-    const placeholderPosition = {
-      bottom: dotPosition === 'inside' ? 0 : 40,
-    }
-
     if (width === null || height === null) {
       return <View style={styles.wrapper} onLayout={this.handleLayout} />
     }
@@ -166,6 +179,7 @@ class ImageSlider extends Component {
     return (
       <View style={styles.wrapper}>
         <Images
+          editor={editor}
           images={images}
           containerWidth={width}
           containerHeight={height}
@@ -201,13 +215,6 @@ const styles = StyleSheet.create({
     marginRight: 4,
     backgroundColor: '#eee',
   },
-  placeholder: {
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    left: 0,
-    backgroundColor: '#eee',
-  },
   scrollViewWrapper: {
     flex: 1,
   },
@@ -225,6 +232,10 @@ const styles = StyleSheet.create({
   image: {
     width: '100%',
     height: '100%',
+  },
+  placeholder: {
+    flex: 1,
+    backgroundColor: '#eee',
   },
 })
 

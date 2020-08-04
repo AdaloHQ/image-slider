@@ -1,10 +1,10 @@
 {
   "name": "image-slider",
-  "description": "",
-  "version": "1.0.0",
+  "description": "Swipeable image slider",
+  "version": "0.0.1",
   "main": "index.js",
   "license": "ISC",
-  "author": "",
+  "author": "Jeremy Blalock",
   "scripts": {
     "start": "adalo dev",
     "login": "adalo login",

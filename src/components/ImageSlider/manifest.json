@@ -1,0 +1,55 @@
+{
+  "displayName": "Image Slider",
+  "defaultWidth": 375,
+  "defaultHeight": 275,
+  "resizeY": true,
+  "components": "./index.js",
+  "icon": "./example-thumbnail.png",
+  "props": [
+    {
+      "name": "images",
+      "displayName": "Data Source",
+      "type": "list"
+    },
+    {
+      "name": "image",
+      "displayName": "Image",
+      "type": "image",
+      "role": "listItem",
+      "reference": "images"
+    }
+  ],
+  "childComponents": [
+    {
+      "name": "dots",
+      "displayName": "Dots",
+      "props": [
+        {
+          "name": "activeColor",
+          "displayName": "Active Color",
+          "type": "color",
+          "default": "@primary"
+        },
+        {
+          "name": "inactiveColor",
+          "displayName": "Inactive Color",
+          "type": "color",
+          "default": "#ddd"
+        },
+        {
+          "name": "position",
+          "displayName": "Position",
+          "type": "text",
+          "default": "outside",
+          "control": {
+            "type": "menu",
+            "options": [
+              { "label": "Inside", "value": "inside" },
+              { "label": "Outside", "value": "outside" }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

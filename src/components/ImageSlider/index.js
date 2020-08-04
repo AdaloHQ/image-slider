@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Image, ScrollView, Text, View, TouchableOpacity, StyleSheet } from 'react-native'
+import { Platform, Image, ScrollView, Text, View, TouchableOpacity, StyleSheet } from 'react-native'
 
 class ImageItem extends Component {
   render() {
@@ -159,6 +159,10 @@ class ImageSlider extends Component {
   }
 
   handleLayout = ({ nativeEvent }) => {
+    const { editor } = this.props
+
+    if (editor) return
+
     const { width, height } = (nativeEvent && nativeEvent.layout) || {}
     const { width: prevWidth, height: prevHeight } = this.state
 
@@ -167,8 +171,18 @@ class ImageSlider extends Component {
     }   
   }
 
+  getDimensions() {
+    let { editor, _width, _height } = this.props
+
+    if (editor) {
+      return { width: _width, height: _height }
+    }
+
+    return this.state
+  }
+
   render() {
-    const { width, height } = this.state
+    const { width, height } = this.getDimensions()
     const { images, dots, editor } = this.props
     const { activeColor, inactiveColor, position: dotPosition } = dots
 
@@ -177,7 +191,7 @@ class ImageSlider extends Component {
     }
 
     return (
-      <View style={styles.wrapper}>
+      <View style={styles.wrapper} onLayout={this.handleLayout}>
         <Images
           editor={editor}
           images={images}
@@ -220,6 +234,11 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     flex: 1,
+    ...Platform.select({
+      web: {
+        scrollSnapType: 'x mandatory'
+      }
+    }),
   },
   imageContainer: {
     flexDirection: 'row',
@@ -228,6 +247,7 @@ const styles = StyleSheet.create({
   },
   imageWrapper: {
     flex: 1,
+    scrollSnapAlign: 'start',
   },
   image: {
     width: '100%',

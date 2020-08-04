@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Platform, Image, ScrollView, Text, View, TouchableOpacity, StyleSheet } from 'react-native'
+import { Platform, Image, ScrollView, Text, View, TouchableOpacity, TouchableWithoutFeedback, StyleSheet } from 'react-native'
 
 class ImageItem extends Component {
   render() {
@@ -41,6 +41,12 @@ class Images extends Component {
     this.scrollView.scrollTo({ x: offset, animated: true })
 
     this.setState({ activeIndex: index })
+  }
+
+  handlePress = i => () => {
+    let { images } = this.props
+
+    images[i] && images[i].action && images[i].action()
   }
 
   scrollViewRef = el => {
@@ -85,13 +91,15 @@ class Images extends Component {
             showsHorizontalScrollIndicator={false}
           >
             <View style={[styles.imageContainer, wrapperStyles]}>
-              {!editor && images.map(({ id, image }) => (
-                <View style={[styles.imageWrapper, innerWrapper]}>
-                  <ImageItem
-                    key={id}
-                    image={image}
-                  />
-                </View>
+              {!editor && images.map(({ id, image }, i) => (
+                <TouchableWithoutFeedback onPress={this.handlePress(i)}>
+                  <View style={[styles.imageWrapper, innerWrapper]}>
+                    <ImageItem
+                      key={id}
+                      image={image}
+                    />
+                  </View>
+                </TouchableWithoutFeedback>
               ))}
             </View>
           </ScrollView>

@@ -17,6 +17,13 @@
       "type": "image",
       "role": "listItem",
       "reference": "images"
+    },
+    {
+      "name": "action",
+      "displayName": "Click Actions",
+      "type": "action",
+      "role": "listItem",
+      "reference": "images"
     }
   ],
   "childComponents": [

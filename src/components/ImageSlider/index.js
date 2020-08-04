@@ -81,7 +81,7 @@ class Images extends Component {
             style={[styles.scrollView]}
             ref={this.scrollViewRef}
             onScroll={this.handleScroll}
-            scrollEventThrottle={50}
+            scrollEventThrottle={0}
             showsHorizontalScrollIndicator={false}
           >
             <View style={[styles.imageContainer, wrapperStyles]}>

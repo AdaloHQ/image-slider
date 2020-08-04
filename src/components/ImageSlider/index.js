@@ -255,7 +255,11 @@ const styles = StyleSheet.create({
   },
   imageWrapper: {
     flex: 1,
-    scrollSnapAlign: 'start',
+    ...Platform.select({
+      web: {
+        scrollSnapAlign: 'start',
+      },
+    }),
   },
   image: {
     width: '100%',

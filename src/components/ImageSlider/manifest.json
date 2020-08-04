@@ -32,6 +32,11 @@
       "displayName": "Dots",
       "props": [
         {
+          "name": "enabled",
+          "type": "boolean",
+          "default": true
+        },
+        {
           "name": "activeColor",
           "displayName": "Active Color",
           "type": "color",

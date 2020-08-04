@@ -62,6 +62,7 @@ class Images extends Component {
       inactiveColor,
       editor,
       paddingBottom,
+      dotsEnabled,
     } = this.props
 
     let { activeIndex } = this.state
@@ -104,13 +105,15 @@ class Images extends Component {
             </View>
           </ScrollView>
         )}
-        <Dots
-          count={images.length}
-          activeIndex={activeIndex}
-          activeColor={activeColor}
-          inactiveColor={inactiveColor}
-          onChange={this.handleChange}
-        />
+        {dotsEnabled && (
+          <Dots
+            count={images.length}
+            activeIndex={activeIndex}
+            activeColor={activeColor}
+            inactiveColor={inactiveColor}
+            onChange={this.handleChange}
+          />
+        )}
       </View>
     )
   }
@@ -141,7 +144,7 @@ class Dots extends Component {
     return (
       <View style={styles.dotsWrapper}>
         {data.map(({ key, active }) => (
-          <TouchableOpacity onPress={this.handlePress(key)}>
+          <TouchableOpacity onPress={this.handlePress(key)} hitSlop={5}>
             <View
               style={[
                 styles.dot,
@@ -192,11 +195,12 @@ class ImageSlider extends Component {
   render() {
     const { width, height } = this.getDimensions()
     const { images, dots, editor } = this.props
-    const { activeColor, inactiveColor, position: dotPosition } = dots
 
     if (width === null || height === null) {
       return <View style={styles.wrapper} onLayout={this.handleLayout} />
     }
+
+    let dotsEnabled = dots.enabled
 
     return (
       <View style={styles.wrapper} onLayout={this.handleLayout}>
@@ -205,9 +209,10 @@ class ImageSlider extends Component {
           images={images}
           containerWidth={width}
           containerHeight={height}
-          paddingBottom={dotPosition === 'inside' ? 0 : 40}
-          activeColor={activeColor}
-          inactiveColor={inactiveColor}
+          dotsEnabled={dotsEnabled}
+          paddingBottom={(!dotsEnabled || dots.position === 'inside') ? 0 : 40}
+          activeColor={dots.activeColor}
+          inactiveColor={dots.inactiveColor}
         />
       </View>
     )
@@ -233,8 +238,9 @@ const styles = StyleSheet.create({
     width: 8,
     height: 8,
     borderRadius: 4,
-    marginLeft: 4,
-    marginRight: 4,
+    margin: 4,
+    marginTop: 8,
+    marginBottom: 8,
     backgroundColor: '#eee',
   },
   scrollViewWrapper: {

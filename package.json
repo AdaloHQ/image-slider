@@ -1,7 +1,7 @@
 {
   "name": "image-slider",
   "description": "Swipeable image slider",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "main": "index.js",
   "license": "ISC",
   "author": "Jeremy Blalock",

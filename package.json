@@ -11,7 +11,7 @@
     "publish": "adalo publish"
   },
   "adalo": {
-    "logo": "./example-logo.png",
+    "logo": "./logo.png",
     "displayName": "Image Slider",
     "components": [
       {

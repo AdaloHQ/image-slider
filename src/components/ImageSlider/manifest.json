@@ -4,7 +4,7 @@
   "defaultHeight": 275,
   "resizeY": true,
   "components": "./index.js",
-  "icon": "./example-thumbnail.png",
+  "icon": "./thumbnail.png",
   "props": [
     {
       "name": "images",

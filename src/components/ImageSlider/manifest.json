@@ -62,6 +62,104 @@
           }
         }
       ]
+    },
+    {
+      "name": "arrows",
+      "displayName": "Arrows",
+      "props": [
+        {
+          "name": "enabled",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "leftIcon",
+          "displayName": "Left Icon",
+          "type": "icon",
+          "default": "chevron-left"
+        },
+        {
+          "name": "rightIcon",
+          "displayName": "Right Icon",
+          "type": "icon",
+          "default": "chevron-right"
+        },
+        {
+          "name": "iconColor",
+          "displayName": "Icon Color",
+          "type": "color",
+          "default": "@primary"
+        },
+        {
+          "name": "iconSize",
+          "displayName": "Icon Size",
+          "type": "number",
+          "default": 24,
+          "control": {
+            "type": "slider",
+            "min": 0,
+            "max": 50
+          }
+        },
+        {
+          "name": "enableBackground",
+          "displayName": "Enable Background",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "backgroundColor",
+          "displayName": "Background Color",
+          "type": "color",
+          "default": "@contrast:iconColor",
+          "enabled": {
+            "enableBackground": true
+          }
+        },
+        {
+          "name": "backgroundRounding",
+          "displayName": "Background Rounding",
+          "type": "number",
+          "default": 10,
+          "enabled": {
+            "enableBackground": true
+          },
+          "control": {
+            "type": "slider",
+            "min": 0,
+            "max": 25
+          }
+        },
+        {
+          "name": "enableBorder",
+          "displayName": "Enable Border",
+          "type": "boolean",
+          "default": false,
+          "enabled": {
+            "enableBackground": true
+          }
+        },
+        {
+          "name": "borderSize",
+          "displayName": "Border Size",
+          "type": "number",
+          "default": 3,
+          "enabled": {
+            "enableBackground": true,
+            "enableBorder": true
+          }
+        },
+        {
+          "name": "borderColor",
+          "displayName": "Border Color",
+          "type": "color",
+          "default": "@contrast:backgroundColor",
+          "enabled": {
+            "enableBackground": true,
+            "enableBorder": true
+          }
+        }
+      ]
     }
   ]
 }

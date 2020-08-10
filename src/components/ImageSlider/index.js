@@ -141,7 +141,7 @@ class Images extends Component {
     }
 
     let scrollViewStyles = { paddingBottom }
-
+    if (!arrows) return <View></View>
     const {
       enabled: enableArrows,
       leftIcon,

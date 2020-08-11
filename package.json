@@ -1,7 +1,7 @@
 {
   "name": "image-slider",
   "description": "Swipeable image slider",
-  "version": "0.0.8",
+  "version": "0.0.12",
   "main": "index.js",
   "license": "ISC",
   "author": "Jeremy Blalock",
@@ -26,5 +26,9 @@
     "react-art": "^16.6.0",
     "react-dom": "^16.9.0",
     "react-native-web": "^0.9.5"
+  },
+  "dependencies": {
+    "react-indiana-drag-scroll": "^1.6.1",
+    "react-native-vector-icons": "^7.0.0"
   }
 }

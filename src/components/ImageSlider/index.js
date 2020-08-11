@@ -7,6 +7,19 @@ class ImageSlider extends Component {
   static defaultProps = {
     images: [],
     dots: {},
+    arrows: {
+      enabled: false,
+      leftIcon: 'chevron-left',
+      rightIcon: 'chevron-right',
+      iconColor: '#7f7d7c',
+      iconSize: 24,
+      enableBackground: false,
+      backgroundColor: '#000000',
+      backgroundRounding: 10,
+      enableBorder: false,
+      borderSize: 3,
+      borderColor: '#FFFFFF',
+    },
   }
 
   state = {
@@ -39,13 +52,20 @@ class ImageSlider extends Component {
 
   render() {
     const { width, height } = this.getDimensions()
-    const { images, dots, editor } = this.props
+    const { images, dots, editor, arrows } = this.props
 
     if (width === null || height === null) {
       return <View style={styles.wrapper} onLayout={this.handleLayout} />
     }
 
     let dotsEnabled = dots.enabled
+
+    let paddingBottom = !dotsEnabled || dots.position === 'inside' ? 0 : 40
+    /*paddingBottom =
+      !arrows.centerArrows && dotsEnabled && dots.position === 'outside'
+        ? 20
+        : paddingBottom
+    */
 
     return (
       <View style={styles.wrapper} onLayout={this.handleLayout}>
@@ -58,6 +78,7 @@ class ImageSlider extends Component {
           paddingBottom={!dotsEnabled || dots.position === 'inside' ? 0 : 40}
           activeColor={dots.activeColor}
           inactiveColor={dots.inactiveColor}
+          arrows={arrows}
         />
       </View>
     )

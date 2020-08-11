@@ -1,169 +1,7 @@
 import React, { Component } from 'react'
-import { Platform, Image, ScrollView, Text, View, TouchableOpacity, TouchableWithoutFeedback, StyleSheet } from 'react-native'
-
-const HIT_SLOP = {
-  top: 4,
-  bottom: 4,
-  left: 4,
-  right: 4,
-}
-
-class ImageItem extends Component {
-  render() {
-    let { image } = this.props
-
-    return (
-      <Image style={styles.image} resizeMode="cover" source={image} />
-    )
-  }
-}
-
-class Images extends Component {
-  state = {
-    activeIndex: 0,
-  }
-
-  calculateIndex = offsetX => {
-    let { containerWidth } = this.props
-    let index = Math.round(offsetX / containerWidth)
-
-    return index
-  }
-
-  handleScroll = ({ nativeEvent }) => {
-    let { activeIndex } = this.state
-    let { x } = nativeEvent.contentOffset
-    this.currentOffset = x
-    let index = this.calculateIndex(x)
-
-    if (index !== activeIndex) {  
-      this.setState({ activeIndex: index })
-    }
-  }
-
-  handleChange = index => {
-    let { containerWidth, images } = this.props
-    let offset = Math.min(images.length - 1, index) * containerWidth
-
-    this.scrollView.scrollTo({ x: offset, animated: true })
-
-    this.setState({ activeIndex: index })
-  }
-
-  handlePress = i => () => {
-    let { images } = this.props
-
-    images[i] && images[i].action && images[i].action()
-  }
-
-  scrollViewRef = el => {
-    this.scrollView = el
-  }
-
-  render() {
-    let {
-      images,
-      containerWidth,
-      containerHeight,
-      activeColor,
-      inactiveColor,
-      editor,
-      paddingBottom,
-      dotsEnabled,
-    } = this.props
-
-    let { activeIndex } = this.state
-
-    let wrapperStyles = {
-      width: images.length * containerWidth,
-    }
-
-    let innerWrapper = {
-      height: containerHeight,
-    }
-
-    let scrollViewStyles = { paddingBottom }
-
-    return (
-      <View style={[styles.scrollViewWrapper, scrollViewStyles]}>
-        {editor ? (
-          <View style={styles.placeholder} />
-        ) : (
-          <ScrollView
-            horizontal
-            pagingEnabled
-            style={[styles.scrollView]}
-            ref={this.scrollViewRef}
-            onScroll={this.handleScroll}
-            scrollEventThrottle={0}
-            showsHorizontalScrollIndicator={false}
-          >
-            <View style={[styles.imageContainer, wrapperStyles]}>
-              {!editor && images.map(({ id, image }, i) => (
-                <TouchableWithoutFeedback onPress={this.handlePress(i)}>
-                  <View style={[styles.imageWrapper, innerWrapper]}>
-                    <ImageItem
-                      key={id}
-                      image={image}
-                    />
-                  </View>
-                </TouchableWithoutFeedback>
-              ))}
-            </View>
-          </ScrollView>
-        )}
-        {dotsEnabled && (
-          <Dots
-            count={images.length}
-            activeIndex={activeIndex}
-            activeColor={activeColor}
-            inactiveColor={inactiveColor}
-            onChange={this.handleChange}
-          />
-        )}
-      </View>
-    )
-  }
-}
-
-class Dots extends Component {
-  getData = () => {
-    let { count, activeIndex } = this.props
-    let data = []
-
-    for (let i = 0; i < count; i += 1) {
-      data.push({ key: i, active: i === activeIndex })
-    }
-
-    return data
-  }
-
-  handlePress = index => () => {
-    let { onChange } = this.props
-
-    onChange(index)
-  }
-
-  render() {
-    let { activeColor, inactiveColor } = this.props
-    let data = this.getData()
-
-    return (
-      <View style={styles.dotsWrapper}>
-        {data.map(({ key, active }) => (
-          <TouchableOpacity onPress={this.handlePress(key)} hitSlop={HIT_SLOP}>
-            <View
-              style={[
-                styles.dot,
-                { backgroundColor: active ? activeColor : inactiveColor }
-              ]}
-            />
-          </TouchableOpacity>
-        ))}
-      </View>
-    )
-  }
-}
+import { View, TouchableOpacity } from 'react-native'
+import ImageList from './ImageList'
+import styles from './Styles'
 
 class ImageSlider extends Component {
   static defaultProps = {
@@ -186,7 +24,7 @@ class ImageSlider extends Component {
 
     if (width !== prevWidth || height !== prevHeight) {
       this.setState({ width, height })
-    }   
+    }
   }
 
   getDimensions() {
@@ -211,13 +49,13 @@ class ImageSlider extends Component {
 
     return (
       <View style={styles.wrapper} onLayout={this.handleLayout}>
-        <Images
+        <ImageList
           editor={editor}
           images={images}
           containerWidth={width}
           containerHeight={height}
           dotsEnabled={dotsEnabled}
-          paddingBottom={(!dotsEnabled || dots.position === 'inside') ? 0 : 40}
+          paddingBottom={!dotsEnabled || dots.position === 'inside' ? 0 : 40}
           activeColor={dots.activeColor}
           inactiveColor={dots.inactiveColor}
         />
@@ -225,63 +63,5 @@ class ImageSlider extends Component {
     )
   }
 }
-
-const styles = StyleSheet.create({
-  wrapper: {
-    flex: 1,
-    height: '100%',
-  },
-  dotsWrapper: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    height: 40,
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexDirection: 'row',
-  },
-  dot: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-    margin: 4,
-    marginTop: 8,
-    marginBottom: 8,
-    backgroundColor: '#eee',
-  },
-  scrollViewWrapper: {
-    flex: 1,
-  },
-  scrollView: {
-    flex: 1,
-    ...Platform.select({
-      web: {
-        scrollSnapType: 'x mandatory'
-      }
-    }),
-  },
-  imageContainer: {
-    flexDirection: 'row',
-    flex: 1,
-    height: '100%',
-  },
-  imageWrapper: {
-    flex: 1,
-    ...Platform.select({
-      web: {
-        scrollSnapAlign: 'start',
-      },
-    }),
-  },
-  image: {
-    width: '100%',
-    height: '100%',
-  },
-  placeholder: {
-    flex: 1,
-    backgroundColor: '#eee',
-  },
-})
 
 export default ImageSlider

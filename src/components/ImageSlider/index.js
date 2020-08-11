@@ -66,7 +66,7 @@ class Images extends Component {
     activeIndex: 0,
   }
 
-  calculateIndex = (offsetX) => {
+  calculateIndex = offsetX => {
     let { containerWidth } = this.props
     let index = Math.round(offsetX / containerWidth)
 
@@ -84,7 +84,7 @@ class Images extends Component {
     }
   }
 
-  handleChange = (index) => {
+  handleChange = index => {
     let { containerWidth, images } = this.props
     let offset = Math.min(images.length - 1, index) * containerWidth
 
@@ -107,13 +107,13 @@ class Images extends Component {
     this.handleChange(activeIndex - 1)
   }
 
-  handlePress = (i) => () => {
+  handlePress = i => () => {
     let { images } = this.props
 
     images[i] && images[i].action && images[i].action()
   }
 
-  scrollViewRef = (el) => {
+  scrollViewRef = el => {
     this.scrollView = el
   }
 
@@ -141,7 +141,7 @@ class Images extends Component {
     }
 
     let scrollViewStyles = { paddingBottom }
-    if (!arrows) return <View></View>
+
     const {
       enabled: enableArrows,
       leftIcon,
@@ -279,7 +279,7 @@ class Dots extends Component {
     return data
   }
 
-  handlePress = (index) => () => {
+  handlePress = index => () => {
     let { onChange } = this.props
 
     onChange(index)
@@ -310,6 +310,7 @@ class ImageSlider extends Component {
   static defaultProps = {
     images: [],
     dots: {},
+    arrows: {},
   }
 
   state = {

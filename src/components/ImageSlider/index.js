@@ -310,7 +310,19 @@ class ImageSlider extends Component {
   static defaultProps = {
     images: [],
     dots: {},
-    arrows: {},
+    arrows: {
+      enabled: false,
+      leftIcon: 'chevron-left',
+      rightIcon: 'chevron-right',
+      iconColor: '#7f7d7c',
+      iconSize: 24,
+      enableBackground: false,
+      backgroundColor: '#000000',
+      backgroundRounding: 10,
+      enableBorder: false,
+      borderSize: 3,
+      borderColor: '#FFFFFF',
+    },
   }
 
   state = {

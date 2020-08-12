@@ -4,7 +4,7 @@ import ImageItem from './ImageItem'
 import styles from './Styles'
 import Dots from './Dots'
 import Arrow from './Arrow'
-import ImageScrollViewWrapper from './ImageScrollViewWrapper'
+import ImageScrollView from './ImageScrollView'
 
 class ImageList extends Component {
   state = {
@@ -29,15 +29,25 @@ class ImageList extends Component {
     }
   }
 
-  handleScrollWeb = (offsets) => {
+  handleScrollWeb = (offset) => {
     let { activeIndex } = this.state
-    let x = offsets[0]
-    this.currentOffset = x
-    let index = this.calculateIndex(x)
+    this.currentOffset = offset
+    let index = this.calculateIndex(offset)
 
     if (index !== activeIndex) {
       this.setState({ activeIndex: index })
     }
+  }
+
+  handleSnap = (x, y, width, height) => {
+    const { images } = this.props
+
+    const imageWidth = width / images.length
+    const activeImage = Math.round(x / imageWidth)
+    const position = activeImage * imageWidth
+
+    // update scroll view position
+    this.scrollView.scrollTo({ x: position, animated: true })
   }
 
   handleChange = (index) => {
@@ -139,9 +149,10 @@ class ImageList extends Component {
           {editor ? (
             <View style={styles.placeholder} />
           ) : (
-            <ImageScrollViewWrapper
+            <ImageScrollView
               handleScroll={this.handleScroll}
               handlePress={this.handlePress}
+              handleSnap={this.handleSnap}
               editor={editor}
               wrapperStyles={wrapperStyles}
               innerWrapper={innerWrapper}

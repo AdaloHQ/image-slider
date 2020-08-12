@@ -4752,10 +4752,8 @@ react-dom@^16.6.0, react-dom@^16.9.0:
     prop-types "^15.6.2"
     scheduler "^0.19.1"
 
-react-indiana-drag-scroll@^1.6.1:
-  version "1.6.1"
-  resolved "https://registry.yarnpkg.com/react-indiana-drag-scroll/-/react-indiana-drag-scroll-1.6.1.tgz#9b1838b03ae5eea38cf35fc1da22030cc1c061a1"
-  integrity sha512-wdeKLI42VJtcp+HEV9O9dxg2C6h9Yn8ot0DbxU8NiXvK3LMAXbqcTi+e5IBrBteI5Jt85jFUsvYcJqgkbNpDCA==
+react-indiana-drag-scroll@../react-indiana-drag-scroll:
+  version "1.7.0"
   dependencies:
     classnames "^2.2.6"
     debounce "^1.2.0"

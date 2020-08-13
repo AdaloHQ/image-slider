@@ -24,6 +24,20 @@
       "type": "action",
       "role": "listItem",
       "reference": "images"
+    },
+    {
+      "name": "scrollAction",
+      "displayName": "Scroll Actions",
+      "type": "action",
+      "role": "listItem",
+      "reference": "images",
+      "arguments": [
+        {
+          "type": "number",
+          "displayName": "New Image Index"
+        }
+      ],
+      "helpText": "Action when user moves to another image"
     }
   ],
   "childComponents": [
@@ -158,6 +172,12 @@
             "enableBackground": true,
             "enableBorder": true
           }
+        },
+        {
+          "name": "endScrollAction",
+          "displayName": "End of Scroll Action",
+          "type": "action",
+          "helpText": "Action when user tries to click past the last image"
         }
       ]
     }

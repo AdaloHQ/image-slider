@@ -46,22 +46,32 @@ class ImageList extends Component {
     const activeImage = Math.round(x / imageWidth)
     const position = activeImage * imageWidth
 
-    // update scroll view position
+    this.scrollTo(position, activeImage)
+  }
+
+  scrollTo = (position, index) => {
     this.scrollView.scrollTo({ x: position, animated: true })
+    const { images } = this.props
+    const { scrollAction } = images[index]
+    if (scrollAction) scrollAction(index)
+
+    this.setState({ activeIndex: index })
   }
 
   handleChange = (index) => {
     let { containerWidth, images } = this.props
     let offset = Math.min(images.length - 1, index) * containerWidth
 
-    this.scrollView.scrollTo({ x: offset, animated: true })
-
-    this.setState({ activeIndex: index })
+    this.scrollTo(offset, index)
   }
 
   handleRightArrow = () => {
     const { activeIndex } = this.state
+    const {
+      arrows: { endScrollAction },
+    } = this.props
     const { images } = this.props
+    if (activeIndex === images.length - 1 && endScrollAction) endScrollAction()
     if (activeIndex > images.length - 2) return
     this.handleChange(activeIndex + 1)
   }

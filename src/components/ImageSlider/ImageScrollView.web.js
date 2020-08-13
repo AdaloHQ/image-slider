@@ -2,7 +2,7 @@ import React from 'react'
 import { View, TouchableWithoutFeedback } from 'react-native'
 import ImageItem from './ImageItem'
 import styles from './Styles'
-import ScrollContainer from 'react-indiana-drag-scroll'
+import ScrollContainer from '@adalo/react-indiana-drag-scroll'
 import ImageScrollViewMobile from './ImageScrollView.js'
 
 const ImageScrollView = React.forwardRef((props, ref) => {

@@ -28,7 +28,7 @@
     "react-native-web": "^0.9.5"
   },
   "dependencies": {
-    "react-indiana-drag-scroll": "../react-indiana-drag-scroll",
+    "@adalo/react-indiana-drag-scroll": "^1.7.0",
     "react-native-vector-icons": "^7.0.0"
   }
 }

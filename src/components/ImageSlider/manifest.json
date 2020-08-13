@@ -27,23 +27,22 @@
     },
     {
       "name": "scrollAction",
-      "displayName": "Scroll Actions",
+      "displayName": "Action when user moves to another image",
       "type": "action",
       "role": "listItem",
       "reference": "images",
       "arguments": [
         {
           "type": "number",
-          "displayName": "New Image Index"
+          "displayName": "Next Image Number"
         }
-      ],
-      "helpText": "Action when user moves to another image"
+      ]
     }
   ],
   "childComponents": [
     {
       "name": "dots",
-      "displayName": "Dots",
+      "displayName": "Slide Indicator",
       "props": [
         {
           "name": "enabled",
@@ -51,16 +50,17 @@
           "default": true
         },
         {
-          "name": "activeColor",
-          "displayName": "Active Color",
-          "type": "color",
-          "default": "@primary"
-        },
-        {
-          "name": "inactiveColor",
-          "displayName": "Inactive Color",
-          "type": "color",
-          "default": "#ddd"
+          "name": "showDots",
+          "displayName": "Show Dots or Numbers?",
+          "type": "boolean",
+          "default": true,
+          "control": {
+            "type": "menu",
+            "options": [
+              { "label": "Dots", "value": true },
+              { "label": "Numbers", "value": false }
+            ]
+          }
         },
         {
           "name": "position",
@@ -73,6 +73,56 @@
               { "label": "Inside", "value": "inside" },
               { "label": "Outside", "value": "outside" }
             ]
+          }
+        },
+        {
+          "name": "activeColor",
+          "displayName": "Active Color",
+          "type": "color",
+          "default": "@primary",
+          "enabled": {
+            "showDots": true
+          }
+        },
+        {
+          "name": "inactiveColor",
+          "displayName": "Inactive Color",
+          "type": "color",
+          "default": "#ddd",
+          "enabled": {
+            "showDots": true
+          }
+        },
+        {
+          "name": "backgroundColor",
+          "displayName": "Background Color",
+          "type": "color",
+          "default": "#000000c4",
+          "enabled": {
+            "showDots": false
+          }
+        },
+        {
+          "name": "textColor",
+          "displayName": "Text Color",
+          "type": "color",
+          "default": "#FFFFFF",
+          "enabled": {
+            "showDots": false
+          }
+        },
+        {
+          "name": "rounding",
+          "displayName": "Rounding",
+          "type": "number",
+          "default": 12,
+          "enabled": {
+            "showDots": false
+          },
+          "control": {
+            "type": "slider",
+            "min": 0,
+            "max": 15
           }
         }
       ]
@@ -141,7 +191,7 @@
           "control": {
             "type": "slider",
             "min": 0,
-            "max": 25
+            "max": 15
           }
         },
         {
@@ -161,6 +211,11 @@
           "enabled": {
             "enableBackground": true,
             "enableBorder": true
+          },
+          "control": {
+            "type": "slider",
+            "min": 0,
+            "max": 10
           }
         },
         {
@@ -175,9 +230,8 @@
         },
         {
           "name": "endScrollAction",
-          "displayName": "End of Scroll Action",
-          "type": "action",
-          "helpText": "Action when user tries to click past the last image"
+          "displayName": "Action when user clicks past the last image",
+          "type": "action"
         }
       ]
     }

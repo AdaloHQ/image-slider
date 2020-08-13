@@ -58,15 +58,6 @@ class ImageSlider extends Component {
       return <View style={styles.wrapper} onLayout={this.handleLayout} />
     }
 
-    let dotsEnabled = dots.enabled
-
-    let paddingBottom = !dotsEnabled || dots.position === 'inside' ? 0 : 40
-    /*paddingBottom =
-      !arrows.centerArrows && dotsEnabled && dots.position === 'outside'
-        ? 20
-        : paddingBottom
-    */
-
     return (
       <View style={styles.wrapper} onLayout={this.handleLayout}>
         <ImageList
@@ -74,11 +65,11 @@ class ImageSlider extends Component {
           images={images}
           containerWidth={width}
           containerHeight={height}
-          dotsEnabled={dotsEnabled}
-          paddingBottom={!dotsEnabled || dots.position === 'inside' ? 0 : 40}
+          paddingBottom={!dots.enabled || dots.position === 'inside' ? 0 : 40}
           activeColor={dots.activeColor}
           inactiveColor={dots.inactiveColor}
           arrows={arrows}
+          dots={dots}
         />
       </View>
     )

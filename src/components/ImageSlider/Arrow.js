@@ -15,6 +15,7 @@ class Arrow extends Component {
       borderColor,
       size,
       onPress,
+      style,
     } = this.props
     const viewHeight =
       size + (enableBackground && enableBorder ? borderSize : 0)
@@ -24,16 +25,24 @@ class Arrow extends Component {
       borderColor: enableBorder && enableBackground ? borderColor : null,
       borderWidth: enableBorder && enableBackground ? borderSize : null,
       height: viewHeight,
+      width: viewHeight,
+      display: 'flex',
       alignSelf: 'center',
-      justifyContent: 'center',
       alignItems: 'center',
+      justifyContent: 'center',
+      position: 'absolute',
+      zIndex: 2,
     }
     return (
-      <View style={viewStyle}>
+      <View style={{ ...viewStyle, ...style }}>
         <Icon name={name} color={color} size={size} onPress={onPress} />
       </View>
     )
   }
+}
+
+Arrow.defaultProps = {
+  style: {},
 }
 
 export default Arrow

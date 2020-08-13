@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { View } from 'react-native'
-import ImageItem from './ImageItem'
 import styles from './Styles'
 import Dots from './Dots'
 import Arrow from './Arrow'
 import ImageScrollView from './ImageScrollView'
+import Numbers from './Numbers'
 
 class ImageList extends Component {
   state = {
@@ -101,7 +101,7 @@ class ImageList extends Component {
       inactiveColor,
       editor,
       paddingBottom,
-      dotsEnabled,
+      dots,
       arrows,
     } = this.props
 
@@ -109,6 +109,8 @@ class ImageList extends Component {
 
     let wrapperStyles = {
       width: images.length * containerWidth,
+      zIndex: -1,
+      position: 'relative',
     }
 
     let innerWrapper = {
@@ -132,6 +134,50 @@ class ImageList extends Component {
     } = arrows
     const centerArrows = true
     const arrowsInScroll = centerArrows || paddingBottom === 0
+    const leftArrow = (
+      <Arrow
+        name={leftIcon}
+        color={iconColor}
+        enableBackground={enableBackground}
+        backgroundColor={backgroundColor}
+        backgroundRounding={backgroundRounding}
+        enableBorder={enableBorder}
+        borderSize={borderSize}
+        borderColor={borderColor}
+        size={iconSize}
+        onPress={this.handleLeftArrow}
+        style={{ left: 8 }}
+      />
+    )
+    const imageScrollView = (
+      <ImageScrollView
+        handleScroll={this.handleScroll}
+        handlePress={this.handlePress}
+        handleSnap={this.handleSnap}
+        editor={editor}
+        wrapperStyles={wrapperStyles}
+        innerWrapper={innerWrapper}
+        images={images}
+        ref={this.scrollViewRef}
+        handleScrollWeb={this.handleScrollWeb}
+      />
+    )
+    const rightArrow = (
+      <Arrow
+        name={rightIcon}
+        color={iconColor}
+        enableBackground={enableBackground}
+        backgroundColor={backgroundColor}
+        backgroundRounding={backgroundRounding}
+        enableBorder={enableBorder}
+        borderSize={borderSize}
+        borderColor={borderColor}
+        size={iconSize}
+        onPress={this.handleRightArrow}
+        style={{ right: 8 }}
+      />
+    )
+    const placeholder = <View style={styles.placeholder} />
     return (
       <View style={[styles.scrollViewWrapper]}>
         <View
@@ -141,69 +187,12 @@ class ImageList extends Component {
             styles.scrollViewWrapper,
           ]}
         >
-          {enableArrows && arrowsInScroll && (
-            <Arrow
-              centerArrows={centerArrows}
-              name={leftIcon}
-              color={iconColor}
-              enableBackground={enableBackground}
-              backgroundColor={backgroundColor}
-              backgroundRounding={backgroundRounding}
-              enableBorder={enableBorder}
-              borderSize={borderSize}
-              borderColor={borderColor}
-              size={iconSize}
-              onPress={this.handleLeftArrow}
-            />
-          )}
-          {editor ? (
-            <View style={styles.placeholder} />
-          ) : (
-            <ImageScrollView
-              handleScroll={this.handleScroll}
-              handlePress={this.handlePress}
-              handleSnap={this.handleSnap}
-              editor={editor}
-              wrapperStyles={wrapperStyles}
-              innerWrapper={innerWrapper}
-              images={images}
-              ref={this.scrollViewRef}
-              handleScrollWeb={this.handleScrollWeb}
-            />
-          )}
-          {enableArrows && arrowsInScroll && (
-            <Arrow
-              centerArrows={centerArrows}
-              name={rightIcon}
-              color={iconColor}
-              enableBackground={enableBackground}
-              backgroundColor={backgroundColor}
-              backgroundRounding={backgroundRounding}
-              enableBorder={enableBorder}
-              borderSize={borderSize}
-              borderColor={borderColor}
-              size={iconSize}
-              onPress={this.handleRightArrow}
-            />
-          )}
+          {enableArrows && arrowsInScroll && leftArrow}
+          {editor ? placeholder : imageScrollView}
+          {enableArrows && arrowsInScroll && rightArrow}
         </View>
         <View style={styles.arrowDotsWrapper}>
-          {enableArrows && !arrowsInScroll && (
-            <Arrow
-              centerArrows={centerArrows}
-              name={leftIcon}
-              color={iconColor}
-              enableBackground={enableBackground}
-              backgroundColor={backgroundColor}
-              backgroundRounding={backgroundRounding}
-              enableBorder={enableBorder}
-              borderSize={borderSize}
-              borderColor={borderColor}
-              size={iconSize}
-              onPress={this.handleLeftArrow}
-            />
-          )}
-          {dotsEnabled && (
+          {dots.enabled && dots.showDots && (
             <Dots
               count={images.length}
               activeIndex={activeIndex}
@@ -212,19 +201,13 @@ class ImageList extends Component {
               onChange={this.handleChange}
             />
           )}
-          {enableArrows && !arrowsInScroll && (
-            <Arrow
-              centerArrows={centerArrows}
-              name={rightIcon}
-              color={iconColor}
-              enableBackground={enableBackground}
-              backgroundColor={backgroundColor}
-              backgroundRounding={backgroundRounding}
-              enableBorder={enableBorder}
-              borderSize={borderSize}
-              borderColor={borderColor}
-              size={iconSize}
-              onPress={this.handleRightArrow}
+          {dots.enabled && !dots.showDots && (
+            <Numbers
+              count={images.length}
+              activeIndex={activeIndex}
+              backgroundColor={dots.backgroundColor}
+              rounding={dots.rounding}
+              textColor={dots.textColor}
             />
           )}
         </View>

@@ -24,6 +24,12 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     backgroundColor: '#eee',
   },
+  numbers: {
+    borderRadius: 4,
+    margin: 4,
+    marginTop: 8,
+    marginBottom: 8,
+  },
   scrollViewWrapper: {
     flex: 1,
   },
@@ -58,10 +64,8 @@ const styles = StyleSheet.create({
   },
   arrowScrollWrapper: {
     flexDirection: 'row',
-  },
-  arrowDotsWrapper: {
-    flexDirection: 'row',
     justifyContent: 'space-between',
+    position: 'relative',
   },
 })
 

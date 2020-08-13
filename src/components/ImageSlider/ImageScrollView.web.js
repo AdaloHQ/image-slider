@@ -3,6 +3,7 @@ import { View, TouchableWithoutFeedback } from 'react-native'
 import ImageItem from './ImageItem'
 import styles from './Styles'
 import ScrollContainer from 'react-indiana-drag-scroll'
+import ImageScrollViewMobile from './ImageScrollView.js'
 
 const ImageScrollView = React.forwardRef((props, ref) => {
   const {
@@ -14,6 +15,10 @@ const ImageScrollView = React.forwardRef((props, ref) => {
     images,
     handleSnap,
   } = props
+
+  if (isMobileDevice()) {
+    return <ImageScrollViewMobile {...props} />
+  }
 
   return (
     <ScrollContainer
@@ -36,5 +41,12 @@ const ImageScrollView = React.forwardRef((props, ref) => {
     </ScrollContainer>
   )
 })
+
+const isMobileDevice = () => {
+  return (
+    typeof window.orientation !== 'undefined' ||
+    navigator.userAgent.indexOf('IEMobile') !== -1
+  )
+}
 
 export default ImageScrollView

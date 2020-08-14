@@ -172,7 +172,7 @@
           "name": "iconColor",
           "displayName": "Icon Color",
           "type": "color",
-          "default": "@primary"
+          "default": "#FFFFFF"
         },
         {
           "name": "iconSize",
@@ -189,13 +189,13 @@
           "name": "enableBackground",
           "displayName": "Enable Background",
           "type": "boolean",
-          "default": false
+          "default": true
         },
         {
           "name": "backgroundColor",
           "displayName": "Background Color",
           "type": "color",
-          "default": "@contrast:iconColor",
+          "default": "#000000b3",
           "enabled": {
             "enableBackground": true
           }
@@ -204,7 +204,7 @@
           "name": "backgroundRounding",
           "displayName": "Background Rounding",
           "type": "number",
-          "default": 10,
+          "default": 15,
           "enabled": {
             "enableBackground": true
           },
@@ -227,7 +227,7 @@
           "name": "borderSize",
           "displayName": "Border Size",
           "type": "number",
-          "default": 3,
+          "default": 2,
           "enabled": {
             "enableBackground": true,
             "enableBorder": true
@@ -242,7 +242,7 @@
           "name": "borderColor",
           "displayName": "Border Color",
           "type": "color",
-          "default": "@contrast:backgroundColor",
+          "default": "@primary",
           "enabled": {
             "enableBackground": true,
             "enableBorder": true

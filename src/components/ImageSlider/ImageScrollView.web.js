@@ -7,13 +7,13 @@ import ImageScrollViewMobile from './ImageScrollView.js'
 
 const ImageScrollView = React.forwardRef((props, ref) => {
   const {
-    handleScrollWeb,
     handlePress,
     editor,
     wrapperStyles,
     innerWrapper,
     images,
     handleSnap,
+    clearAutoplay,
   } = props
 
   if (isMobileDevice()) {
@@ -25,8 +25,8 @@ const ImageScrollView = React.forwardRef((props, ref) => {
       horizontal={true}
       vertical={false}
       ref={ref}
-      onScroll={handleScrollWeb}
       onEndScroll={handleSnap}
+      onStartScroll={clearAutoplay}
     >
       <View style={[styles.imageContainer, wrapperStyles]}>
         {!editor &&

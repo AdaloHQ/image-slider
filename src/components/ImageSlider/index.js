@@ -52,7 +52,14 @@ class ImageSlider extends Component {
 
   render() {
     const { width, height } = this.getDimensions()
-    const { images, dots, editor, arrows } = this.props
+    const {
+      images,
+      dots,
+      editor,
+      arrows,
+      enableAutoplay,
+      autoplayTime,
+    } = this.props
 
     if (width === null || height === null) {
       return <View style={styles.wrapper} onLayout={this.handleLayout} />
@@ -70,6 +77,8 @@ class ImageSlider extends Component {
           inactiveColor={dots.inactiveColor}
           arrows={arrows}
           dots={dots}
+          enableAutoplay={enableAutoplay}
+          autoplayTime={autoplayTime}
         />
       </View>
     )

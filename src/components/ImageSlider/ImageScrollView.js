@@ -11,6 +11,7 @@ const ImageScrollView = React.forwardRef((props, ref) => {
     wrapperStyles,
     innerWrapper,
     images,
+    clearAutoplay,
   } = props
   return (
     <ScrollView
@@ -21,6 +22,7 @@ const ImageScrollView = React.forwardRef((props, ref) => {
       onScroll={handleScroll}
       scrollEventThrottle={0}
       showsHorizontalScrollIndicator={false}
+      onScrollBeginDrag={clearAutoplay}
     >
       <View style={[styles.imageContainer, wrapperStyles]}>
         {!editor &&

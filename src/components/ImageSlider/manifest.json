@@ -19,6 +19,26 @@
       "reference": "images"
     },
     {
+      "name": "enableAutoplay",
+      "displayName": "Autoplay?",
+      "type": "boolean",
+      "default": false
+    },
+    {
+      "name": "autoplayTime",
+      "displayName": "Autoplay Delay (in seconds)",
+      "type": "number",
+      "default": 3,
+      "control": {
+        "type": "slider",
+        "min": 0,
+        "max": 10
+      },
+      "enabled": {
+        "enableAutoplay": true
+      }
+    },
+    {
       "name": "action",
       "displayName": "Click Actions",
       "type": "action",

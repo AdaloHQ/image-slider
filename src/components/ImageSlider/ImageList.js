@@ -11,13 +11,42 @@ class ImageList extends Component {
     activeIndex: 0,
   }
 
-  calculateIndex = (offsetX) => {
+  componentDidMount() {
+    const { enableAutoplay, autoplayTime, editor } = this.props
+    if (!editor && enableAutoplay) {
+      this.autoplay(autoplayTime)
+    }
+  }
+
+  componentWillUnmount() {
+    this.clearAutoplay()
+  }
+
+  clearAutoplay = () => {
+    clearInterval(this.autoplay)
+  }
+
+  autoplay = time => {
+    this.autoplay = setInterval(() => {
+      const { activeIndex } = this.state
+      const { images } = this.props
+      if (activeIndex === images.length - 1) {
+        clearInterval(this.autoplay)
+      } else {
+        this.handleChange(activeIndex + 1)
+      }
+    }, time * 1000)
+  }
+
+  calculateIndex = offsetX => {
     let { containerWidth } = this.props
     let index = Math.round(offsetX / containerWidth)
 
     return index
   }
 
+  // Only used on mobile. Most of the scrolling logic is handled by handleSnap
+  // and scrollTo on web.
   handleScroll = ({ nativeEvent }) => {
     let { activeIndex } = this.state
     let { x } = nativeEvent.contentOffset
@@ -29,16 +58,8 @@ class ImageList extends Component {
     }
   }
 
-  handleScrollWeb = (offset) => {
-    let { activeIndex } = this.state
-    this.currentOffset = offset
-    let index = this.calculateIndex(offset)
-
-    if (index !== activeIndex) {
-      this.setState({ activeIndex: index })
-    }
-  }
-
+  // Callback on web when the drag scroll finishes the scroll event.
+  // Checks where the scroll currently is, and snaps to closest image.
   handleSnap = (x, y, width, height) => {
     const { images } = this.props
 
@@ -58,7 +79,7 @@ class ImageList extends Component {
     this.setState({ activeIndex: index })
   }
 
-  handleChange = (index) => {
+  handleChange = index => {
     let { containerWidth, images } = this.props
     let offset = Math.min(images.length - 1, index) * containerWidth
 
@@ -66,6 +87,7 @@ class ImageList extends Component {
   }
 
   handleRightArrow = () => {
+    this.clearAutoplay()
     const { activeIndex } = this.state
     const {
       arrows: { endScrollAction },
@@ -77,18 +99,20 @@ class ImageList extends Component {
   }
 
   handleLeftArrow = () => {
+    this.clearAutoplay()
     const { activeIndex } = this.state
     if (activeIndex === 0) return
     this.handleChange(activeIndex - 1)
   }
 
-  handlePress = (i) => () => {
+  handlePress = i => () => {
+    this.clearAutoplay()
     let { images } = this.props
 
     images[i] && images[i].action && images[i].action()
   }
 
-  scrollViewRef = (el) => {
+  scrollViewRef = el => {
     this.scrollView = el
   }
 
@@ -159,7 +183,7 @@ class ImageList extends Component {
         innerWrapper={innerWrapper}
         images={images}
         ref={this.scrollViewRef}
-        handleScrollWeb={this.handleScrollWeb}
+        clearAutoplay={this.clearAutoplay}
       />
     )
     const rightArrow = (

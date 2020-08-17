@@ -31,7 +31,7 @@ class ImageList extends Component {
       const { activeIndex } = this.state
       const { images } = this.props
       if (activeIndex === images.length - 1) {
-        clearInterval(this.autoplay)
+        this.handleChange(0)
       } else {
         this.handleChange(activeIndex + 1)
       }

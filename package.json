@@ -4,7 +4,7 @@
   "version": "0.0.9",
   "main": "index.js",
   "license": "ISC",
-  "author": "Jeremy Blalock",
+  "author": "Adalo",
   "scripts": {
     "start": "adalo dev",
     "login": "adalo login",

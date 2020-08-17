@@ -16,6 +16,7 @@ class Arrow extends Component {
       size,
       onPress,
       style,
+      disabled,
     } = this.props
 
     const viewHeight =
@@ -34,10 +35,16 @@ class Arrow extends Component {
       justifyContent: 'center',
       position: 'absolute',
       zIndex: 2,
+      opacity: disabled ? 0.5 : 1,
     }
     return (
       <View style={{ ...viewStyle, ...style }}>
-        <Icon name={name} color={color} size={size} onPress={onPress} />
+        <Icon
+          name={name}
+          color={color}
+          size={size}
+          onPress={disabled ? null : onPress}
+        />
       </View>
     )
   }

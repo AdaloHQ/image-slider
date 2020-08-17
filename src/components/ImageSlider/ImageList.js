@@ -174,6 +174,9 @@ class ImageList extends Component {
 
     const arrowsInScroll = centerArrows || paddingBottom === 0
 
+    const disableLeft = activeIndex === 0 && !editor
+    const disableRight = activeIndex === images.length - 1
+
     const indicatorType = dots.showDots === undefined ? true : dots.showDots
 
     const leftArrow = (
@@ -189,6 +192,7 @@ class ImageList extends Component {
         size={iconSize}
         onPress={this.handleLeftArrow}
         style={{ left: 8 }}
+        disabled={disableLeft}
       />
     )
 
@@ -231,6 +235,7 @@ class ImageList extends Component {
         size={iconSize}
         onPress={this.handleRightArrow}
         style={{ right: 8 }}
+        disabled={disableRight}
       />
     )
 

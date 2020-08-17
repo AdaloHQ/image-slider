@@ -16,10 +16,6 @@ const ImageScrollView = React.forwardRef((props, ref) => {
     clearAutoplay,
   } = props
 
-  if (isMobileDevice()) {
-    return <ImageScrollViewMobile {...props} />
-  }
-
   return (
     <ScrollContainer
       horizontal={true}

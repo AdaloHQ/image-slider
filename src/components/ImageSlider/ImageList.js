@@ -3,7 +3,8 @@ import { View } from 'react-native'
 import styles from './Styles'
 import Dots from './Dots'
 import Arrow from './Arrow'
-import ImageScrollView from './ImageScrollView'
+import ImageScrollViewWeb from './ImageScrollView.web.js'
+import ImageScrollViewMobile from './ImageScrollView.js'
 import Numbers from './Numbers'
 
 class ImageList extends Component {
@@ -14,30 +15,37 @@ class ImageList extends Component {
   componentDidMount() {
     const { enableAutoplay, autoplayTime, editor } = this.props
     if (!editor && enableAutoplay) {
-      this.autoplay(autoplayTime)
+      this.startAutoplay(autoplayTime)
     }
   }
 
   componentWillUnmount() {
-    this.clearAutoplay()
+    clearInterval(this.autoplay)
   }
 
   clearAutoplay = () => {
     clearInterval(this.autoplay)
     const { autoplayTime } = this.props
-    this.autoplay(autoplayTime)
+    this.startAutoplay(autoplayTime)
   }
 
-  autoplay = time => {
+  startAutoplay = time => {
     this.autoplay = setInterval(() => {
       const { activeIndex } = this.state
       const { images } = this.props
       if (activeIndex === images.length - 1) {
-        this.handleChange(0)
+        this.handleChange(0, true)
       } else {
-        this.handleChange(activeIndex + 1)
+        this.handleChange(activeIndex + 1, true)
       }
     }, time * 1000)
+  }
+
+  isMobileDevice = () => {
+    return (
+      typeof window.orientation !== 'undefined' ||
+      navigator.userAgent.indexOf('IEMobile') !== -1
+    )
   }
 
   calculateIndex = offsetX => {
@@ -57,6 +65,7 @@ class ImageList extends Component {
 
     if (index !== activeIndex) {
       this.setState({ activeIndex: index })
+      this.clearAutoplay()
     }
   }
 
@@ -72,20 +81,22 @@ class ImageList extends Component {
     this.scrollTo(position, activeImage)
   }
 
-  scrollTo = (position, index) => {
+  scrollTo = (position, index, autoplay = false) => {
     this.scrollView.scrollTo({ x: position, animated: true })
-    const { images } = this.props
+    const { images, enableAutoplay } = this.props
     const { scrollAction } = images[index]
     if (scrollAction) scrollAction(index)
 
     this.setState({ activeIndex: index })
+
+    if (!autoplay && enableAutoplay) this.clearAutoplay()
   }
 
-  handleChange = index => {
+  handleChange = (index, autoplay = false) => {
     let { containerWidth, images } = this.props
     let offset = Math.min(images.length - 1, index) * containerWidth
 
-    this.scrollTo(offset, index)
+    this.scrollTo(offset, index, autoplay)
   }
 
   handleRightArrow = () => {
@@ -181,8 +192,20 @@ class ImageList extends Component {
       />
     )
 
-    const imageScrollView = (
-      <ImageScrollView
+    const imageScrollView = this.isMobileDevice() ? (
+      <ImageScrollViewMobile
+        handleScroll={this.handleScroll}
+        handlePress={this.handlePress}
+        handleSnap={this.handleSnap}
+        editor={editor}
+        wrapperStyles={wrapperStyles}
+        innerWrapper={innerWrapper}
+        images={images}
+        ref={this.scrollViewRef}
+        clearAutoplay={this.clearAutoplay}
+      />
+    ) : (
+      <ImageScrollViewWeb
         handleScroll={this.handleScroll}
         handlePress={this.handlePress}
         handleSnap={this.handleSnap}

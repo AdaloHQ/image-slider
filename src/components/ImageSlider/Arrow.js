@@ -17,8 +17,10 @@ class Arrow extends Component {
       onPress,
       style,
     } = this.props
+
     const viewHeight =
       size + (enableBackground && enableBorder ? borderSize : 0)
+
     const viewStyle = {
       backgroundColor: enableBackground ? backgroundColor : null,
       borderRadius: enableBackground ? backgroundRounding : null,

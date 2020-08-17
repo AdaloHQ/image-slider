@@ -156,8 +156,11 @@ class ImageList extends Component {
       borderColor,
       iconSize,
     } = arrows
+
     const centerArrows = true
+
     const arrowsInScroll = centerArrows || paddingBottom === 0
+
     const leftArrow = (
       <Arrow
         name={leftIcon}
@@ -173,6 +176,7 @@ class ImageList extends Component {
         style={{ left: 8 }}
       />
     )
+
     const imageScrollView = (
       <ImageScrollView
         handleScroll={this.handleScroll}
@@ -186,6 +190,7 @@ class ImageList extends Component {
         clearAutoplay={this.clearAutoplay}
       />
     )
+
     const rightArrow = (
       <Arrow
         name={rightIcon}
@@ -201,7 +206,9 @@ class ImageList extends Component {
         style={{ right: 8 }}
       />
     )
+
     const placeholder = <View style={styles.placeholder} />
+
     return (
       <View style={[styles.scrollViewWrapper]}>
         <View

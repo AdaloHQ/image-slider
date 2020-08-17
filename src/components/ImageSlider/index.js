@@ -52,6 +52,7 @@ class ImageSlider extends Component {
 
   render() {
     const { width, height } = this.getDimensions()
+
     const {
       images,
       dots,

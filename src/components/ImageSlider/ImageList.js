@@ -161,6 +161,8 @@ class ImageList extends Component {
 
     const arrowsInScroll = centerArrows || paddingBottom === 0
 
+    const indicatorType = dots.showDots === undefined ? true : dots.showDots
+
     const leftArrow = (
       <Arrow
         name={leftIcon}
@@ -223,7 +225,7 @@ class ImageList extends Component {
           {enableArrows && arrowsInScroll && rightArrow}
         </View>
         <View style={styles.arrowDotsWrapper}>
-          {dots.enabled && dots.showDots && (
+          {dots.enabled && indicatorType && (
             <Dots
               count={images.length}
               activeIndex={activeIndex}
@@ -232,7 +234,7 @@ class ImageList extends Component {
               onChange={this.handleChange}
             />
           )}
-          {dots.enabled && !dots.showDots && (
+          {dots.enabled && !indicatorType && (
             <Numbers
               count={images.length}
               activeIndex={activeIndex}

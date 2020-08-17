@@ -71,7 +71,7 @@
         },
         {
           "name": "showDots",
-          "displayName": "Show Dots or Numbers?",
+          "displayName": "Indicator Type",
           "type": "boolean",
           "default": true,
           "control": {

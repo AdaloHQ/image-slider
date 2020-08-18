@@ -1,6 +1,14 @@
 import React, { Component } from 'react'
-import { View } from 'react-native'
+import { View, TouchableOpacity } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
+import styles from './Styles'
+
+const HIT_SLOP = {
+  top: 4,
+  bottom: 4,
+  left: 4,
+  right: 4,
+}
 
 class Arrow extends Component {
   render() {
@@ -29,23 +37,16 @@ class Arrow extends Component {
       borderWidth: enableBorder && enableBackground ? borderSize : null,
       height: viewHeight,
       width: viewHeight,
-      display: 'flex',
-      alignSelf: 'center',
-      alignItems: 'center',
-      justifyContent: 'center',
-      position: 'absolute',
-      zIndex: 2,
       opacity: disabled ? 0.5 : 1,
     }
     return (
-      <View style={{ ...viewStyle, ...style }}>
-        <Icon
-          name={name}
-          color={color}
-          size={size}
-          onPress={disabled ? null : onPress}
-        />
-      </View>
+      <TouchableOpacity
+        onPress={disabled ? null : onPress}
+        style={[viewStyle, style, styles.arrowView]}
+        hitSlop={HIT_SLOP}
+      >
+        <Icon name={name} color={color} size={size} />
+      </TouchableOpacity>
     )
   }
 }

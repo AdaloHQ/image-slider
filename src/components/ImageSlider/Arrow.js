@@ -44,6 +44,7 @@ class Arrow extends Component {
         onPress={disabled ? null : onPress}
         style={[viewStyle, style, styles.arrowView]}
         hitSlop={HIT_SLOP}
+        disabled={disabled}
       >
         <Icon name={name} color={color} size={size} />
       </TouchableOpacity>

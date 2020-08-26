@@ -19,17 +19,50 @@
       "reference": "images"
     },
     {
+      "name": "enableAutoplay",
+      "displayName": "Autoplay?",
+      "type": "boolean",
+      "default": false
+    },
+    {
+      "name": "autoplayTime",
+      "displayName": "Autoplay Delay (in seconds)",
+      "type": "number",
+      "default": 3,
+      "control": {
+        "type": "slider",
+        "min": 0,
+        "max": 10
+      },
+      "enabled": {
+        "enableAutoplay": true
+      }
+    },
+    {
       "name": "action",
       "displayName": "Click Actions",
       "type": "action",
       "role": "listItem",
       "reference": "images"
+    },
+    {
+      "name": "scrollAction",
+      "displayName": "Action when user moves to another image",
+      "type": "action",
+      "role": "listItem",
+      "reference": "images",
+      "arguments": [
+        {
+          "type": "number",
+          "displayName": "Next Image Number"
+        }
+      ]
     }
   ],
   "childComponents": [
     {
       "name": "dots",
-      "displayName": "Dots",
+      "displayName": "Slide Indicator",
       "props": [
         {
           "name": "enabled",
@@ -37,16 +70,17 @@
           "default": true
         },
         {
-          "name": "activeColor",
-          "displayName": "Active Color",
-          "type": "color",
-          "default": "@primary"
-        },
-        {
-          "name": "inactiveColor",
-          "displayName": "Inactive Color",
-          "type": "color",
-          "default": "#ddd"
+          "name": "showDots",
+          "displayName": "Indicator Type",
+          "type": "boolean",
+          "default": true,
+          "control": {
+            "type": "menu",
+            "options": [
+              { "label": "Dots", "value": true },
+              { "label": "Numbers", "value": false }
+            ]
+          }
         },
         {
           "name": "position",
@@ -60,6 +94,164 @@
               { "label": "Outside", "value": "outside" }
             ]
           }
+        },
+        {
+          "name": "activeColor",
+          "displayName": "Active Color",
+          "type": "color",
+          "default": "@primary",
+          "enabled": {
+            "showDots": true
+          }
+        },
+        {
+          "name": "inactiveColor",
+          "displayName": "Inactive Color",
+          "type": "color",
+          "default": "#ddd",
+          "enabled": {
+            "showDots": true
+          }
+        },
+        {
+          "name": "backgroundColor",
+          "displayName": "Background Color",
+          "type": "color",
+          "default": "#000000c4",
+          "enabled": {
+            "showDots": false
+          }
+        },
+        {
+          "name": "textColor",
+          "displayName": "Text Color",
+          "type": "color",
+          "default": "#FFFFFF",
+          "enabled": {
+            "showDots": false
+          }
+        },
+        {
+          "name": "rounding",
+          "displayName": "Rounding",
+          "type": "number",
+          "default": 12,
+          "enabled": {
+            "showDots": false
+          },
+          "control": {
+            "type": "slider",
+            "min": 0,
+            "max": 15
+          }
+        }
+      ]
+    },
+    {
+      "name": "arrows",
+      "displayName": "Arrows",
+      "props": [
+        {
+          "name": "enabled",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "leftIcon",
+          "displayName": "Left Icon",
+          "type": "icon",
+          "default": "chevron-left"
+        },
+        {
+          "name": "rightIcon",
+          "displayName": "Right Icon",
+          "type": "icon",
+          "default": "chevron-right"
+        },
+        {
+          "name": "iconColor",
+          "displayName": "Icon Color",
+          "type": "color",
+          "default": "#FFFFFF"
+        },
+        {
+          "name": "iconSize",
+          "displayName": "Icon Size",
+          "type": "number",
+          "default": 24,
+          "control": {
+            "type": "slider",
+            "min": 0,
+            "max": 50
+          }
+        },
+        {
+          "name": "enableBackground",
+          "displayName": "Enable Background",
+          "type": "boolean",
+          "default": true
+        },
+        {
+          "name": "backgroundColor",
+          "displayName": "Background Color",
+          "type": "color",
+          "default": "#000000b3",
+          "enabled": {
+            "enableBackground": true
+          }
+        },
+        {
+          "name": "backgroundRounding",
+          "displayName": "Background Rounding",
+          "type": "number",
+          "default": 15,
+          "enabled": {
+            "enableBackground": true
+          },
+          "control": {
+            "type": "slider",
+            "min": 0,
+            "max": 15
+          }
+        },
+        {
+          "name": "enableBorder",
+          "displayName": "Enable Border",
+          "type": "boolean",
+          "default": false,
+          "enabled": {
+            "enableBackground": true
+          }
+        },
+        {
+          "name": "borderSize",
+          "displayName": "Border Size",
+          "type": "number",
+          "default": 2,
+          "enabled": {
+            "enableBackground": true,
+            "enableBorder": true
+          },
+          "control": {
+            "type": "slider",
+            "min": 0,
+            "max": 10
+          }
+        },
+        {
+          "name": "borderColor",
+          "displayName": "Border Color",
+          "type": "color",
+          "default": "@primary",
+          "enabled": {
+            "enableBackground": true,
+            "enableBorder": true
+          }
+        },
+        {
+          "name": "endScrollAction",
+          "displayName": "Action when user clicks past the last image",
+          "type": "action"
         }
       ]
     }

@@ -1,7 +1,7 @@
 {
   "name": "image-slider",
   "description": "Swipeable image slider",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "main": "index.js",
   "license": "ISC",
   "author": "Adalo",
@@ -26,5 +26,9 @@
     "react-art": "^16.6.0",
     "react-dom": "^16.9.0",
     "react-native-web": "^0.9.5"
+  },
+  "dependencies": {
+    "@adalo/react-indiana-drag-scroll": "^1.7.0",
+    "react-native-vector-icons": "^7.0.0"
   }
 }

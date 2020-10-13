@@ -6,7 +6,14 @@ import styles from './Styles'
 class ImageSlider extends Component {
   static defaultProps = {
     images: [],
-    dots: {},
+    dots: {
+      enabled: true,
+      showDots: true,
+      position: "outside",
+      rounding: 12,
+    },
+    enableAutoplay: false,
+    autoplayTime: 3,
     arrows: {
       enabled: false,
       leftIcon: 'chevron-left',

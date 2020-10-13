@@ -25,8 +25,8 @@ class ImageList extends Component {
 
   clearAutoplay = () => {
     clearInterval(this.autoplay)
-    const { autoplayTime } = this.props
-    this.startAutoplay(autoplayTime)
+    const { autoplayTime, enableAutoplay } = this.props
+    if(enableAutoplay) this.startAutoplay(autoplayTime)
   }
 
   startAutoplay = time => {

@@ -26,10 +26,10 @@ const ImageScrollView = React.forwardRef((props, ref) => {
     >
       <View style={[styles.imageContainer, wrapperStyles]}>
         {!editor &&
-          images.map(({ id, image }, i) => (
-            <TouchableWithoutFeedback onPress={handlePress(i)}>
+          images.map(({ image }, i) => (
+            <TouchableWithoutFeedback key={i} onPress={handlePress(i)}>
               <View style={[styles.imageWrapper, innerWrapper]}>
-                <ImageItem key={id} image={image} />
+                <ImageItem image={image} />
               </View>
             </TouchableWithoutFeedback>
           ))}

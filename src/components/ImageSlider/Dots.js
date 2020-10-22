@@ -21,7 +21,7 @@ class Dots extends Component {
     return data
   }
 
-  handlePress = (index) => () => {
+  handlePress = index => () => {
     let { onChange } = this.props
 
     onChange(index)
@@ -33,8 +33,12 @@ class Dots extends Component {
 
     return (
       <View style={styles.dotsWrapper}>
-        {data.map(({ key, active }) => (
-          <TouchableOpacity onPress={this.handlePress(key)} hitSlop={HIT_SLOP}>
+        {data.map(({ key, active }, index) => (
+          <TouchableOpacity
+            key={index}
+            onPress={this.handlePress(key)}
+            hitSlop={HIT_SLOP}
+          >
             <View
               style={[
                 styles.dot,

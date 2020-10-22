@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View } from 'react-native'
+import { View, Platform } from 'react-native'
 import styles from './Styles'
 import Dots from './Dots'
 import Arrow from './Arrow'
@@ -26,7 +26,7 @@ class ImageList extends Component {
   clearAutoplay = () => {
     clearInterval(this.autoplay)
     const { autoplayTime, enableAutoplay } = this.props
-    if(enableAutoplay) this.startAutoplay(autoplayTime)
+    if (enableAutoplay) this.startAutoplay(autoplayTime)
   }
 
   startAutoplay = time => {
@@ -42,10 +42,17 @@ class ImageList extends Component {
   }
 
   isMobileDevice = () => {
-    return (
-      typeof window.orientation !== 'undefined' ||
-      navigator.userAgent.indexOf('IEMobile') !== -1
-    )
+    if (
+      Platform.OS === 'ios' ||
+      Platform.OS === 'android' ||
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent
+      )
+    ) {
+      return true
+    } else {
+      return false
+    }
   }
 
   calculateIndex = offsetX => {
@@ -141,6 +148,10 @@ class ImageList extends Component {
       dots,
       arrows,
     } = this.props
+
+    if (!images || typeof navigator.userAgent === undefined || !images[0]) {
+      return <View></View>
+    }
 
     let { activeIndex } = this.state
 

@@ -13,7 +13,10 @@ class ImageList extends Component {
   }
 
   componentDidMount() {
-    const { enableAutoplay, autoplayTime, editor } = this.props
+    const {
+      autoplay: { enabled: enableAutoplay, autoplayTime },
+      editor,
+    } = this.props
     if (!editor && enableAutoplay) {
       this.startAutoplay(autoplayTime)
     }
@@ -25,7 +28,9 @@ class ImageList extends Component {
 
   clearAutoplay = () => {
     clearInterval(this.autoplay)
-    const { autoplayTime, enableAutoplay } = this.props
+    const {
+      autoplay: { enabled: enableAutoplay, autoplayTime },
+    } = this.props
     if (enableAutoplay) this.startAutoplay(autoplayTime)
   }
 
@@ -90,7 +95,10 @@ class ImageList extends Component {
 
   scrollTo = (position, index, autoplay = false) => {
     this.scrollView.scrollTo({ x: position, animated: true })
-    const { images, enableAutoplay } = this.props
+    const {
+      images,
+      autoplay: { enabled: enableAutoplay },
+    } = this.props
     const { scrollAction } = images[index]
     if (scrollAction) scrollAction(index)
 

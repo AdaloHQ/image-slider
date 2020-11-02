@@ -35,6 +35,7 @@ class ImageList extends Component {
   }
 
   startAutoplay = time => {
+    if (!time) return
     this.autoplay = setInterval(() => {
       const { activeIndex } = this.state
       const { images } = this.props

@@ -141,6 +141,11 @@ class ImageList extends Component {
     images[i] && images[i].action && images[i].action()
   }
 
+  onClickWeb = () => {
+    const { activeIndex } = this.state
+    this.handlePress(activeIndex)()
+  }
+
   scrollViewRef = el => {
     this.scrollView = el
   }
@@ -239,6 +244,7 @@ class ImageList extends Component {
         images={images}
         ref={this.scrollViewRef}
         clearAutoplay={this.clearAutoplay}
+        onClickWeb={this.onClickWeb}
       />
     )
 

@@ -14,6 +14,7 @@ const ImageScrollView = React.forwardRef((props, ref) => {
     images,
     handleSnap,
     clearAutoplay,
+    onClickWeb,
   } = props
 
   return (
@@ -23,6 +24,7 @@ const ImageScrollView = React.forwardRef((props, ref) => {
       ref={ref}
       onEndScroll={handleSnap}
       onStartScroll={clearAutoplay}
+      onClick={onClickWeb}
     >
       <View style={[styles.imageContainer, wrapperStyles]}>
         {!editor &&

@@ -7,7 +7,6 @@ import ImageScrollViewMobile from './ImageScrollView.js'
 
 const ImageScrollView = React.forwardRef((props, ref) => {
   const {
-    handlePress,
     editor,
     wrapperStyles,
     innerWrapper,
@@ -29,7 +28,7 @@ const ImageScrollView = React.forwardRef((props, ref) => {
       <View style={[styles.imageContainer, wrapperStyles]}>
         {!editor &&
           images.map(({ image }, i) => (
-            <TouchableWithoutFeedback key={i} onPress={handlePress(i)}>
+            <TouchableWithoutFeedback key={i}>
               <View style={[styles.imageWrapper, innerWrapper]}>
                 <ImageItem image={image} />
               </View>

@@ -8,7 +8,7 @@
   "props": [
     {
       "name": "images",
-      "displayName": "Data Source",
+      "displayName": "What images should be displayed?",
       "type": "list"
     },
     {
@@ -19,35 +19,15 @@
       "reference": "images"
     },
     {
-      "name": "enableAutoplay",
-      "displayName": "Autoplay?",
-      "type": "boolean",
-      "default": false
-    },
-    {
-      "name": "autoplayTime",
-      "displayName": "Autoplay Delay (in seconds)",
-      "type": "number",
-      "default": 3,
-      "control": {
-        "type": "slider",
-        "min": 0,
-        "max": 10
-      },
-      "enabled": {
-        "enableAutoplay": true
-      }
-    },
-    {
       "name": "action",
-      "displayName": "Click Actions",
+      "displayName": "Actions when user clicks on the current image",
       "type": "action",
       "role": "listItem",
       "reference": "images"
     },
     {
       "name": "scrollAction",
-      "displayName": "Action when user moves to another image",
+      "displayName": "Actions when user moves to another image",
       "type": "action",
       "role": "listItem",
       "reference": "images",
@@ -252,6 +232,28 @@
           "name": "endScrollAction",
           "displayName": "Action when user clicks past the last image",
           "type": "action"
+        }
+      ]
+    },
+    {
+      "name": "autoplay",
+      "displayName": "Autoplay",
+      "props": [
+        {
+          "name": "enabled",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "name": "autoplayTime",
+          "displayName": "Autoplay Delay (in seconds)",
+          "type": "number",
+          "default": 3,
+          "control": {
+            "type": "slider",
+            "min": 1,
+            "max": 10
+          }
         }
       ]
     }

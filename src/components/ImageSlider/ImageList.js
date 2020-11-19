@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View } from 'react-native'
+import { View, Platform } from 'react-native'
 import styles from './Styles'
 import Dots from './Dots'
 import Arrow from './Arrow'
@@ -13,7 +13,10 @@ class ImageList extends Component {
   }
 
   componentDidMount() {
-    const { enableAutoplay, autoplayTime, editor } = this.props
+    const {
+      autoplay: { enabled: enableAutoplay, autoplayTime },
+      editor,
+    } = this.props
     if (!editor && enableAutoplay) {
       this.startAutoplay(autoplayTime)
     }
@@ -25,11 +28,14 @@ class ImageList extends Component {
 
   clearAutoplay = () => {
     clearInterval(this.autoplay)
-    const { autoplayTime, enableAutoplay } = this.props
-    if(enableAutoplay) this.startAutoplay(autoplayTime)
+    const {
+      autoplay: { enabled: enableAutoplay, autoplayTime },
+    } = this.props
+    if (enableAutoplay) this.startAutoplay(autoplayTime)
   }
 
   startAutoplay = time => {
+    if (!time) return
     this.autoplay = setInterval(() => {
       const { activeIndex } = this.state
       const { images } = this.props
@@ -42,10 +48,17 @@ class ImageList extends Component {
   }
 
   isMobileDevice = () => {
-    return (
-      typeof window.orientation !== 'undefined' ||
-      navigator.userAgent.indexOf('IEMobile') !== -1
-    )
+    if (
+      Platform.OS === 'ios' ||
+      Platform.OS === 'android' ||
+      /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+        navigator.userAgent
+      )
+    ) {
+      return true
+    } else {
+      return false
+    }
   }
 
   calculateIndex = offsetX => {
@@ -83,7 +96,10 @@ class ImageList extends Component {
 
   scrollTo = (position, index, autoplay = false) => {
     this.scrollView.scrollTo({ x: position, animated: true })
-    const { images, enableAutoplay } = this.props
+    const {
+      images,
+      autoplay: { enabled: enableAutoplay },
+    } = this.props
     const { scrollAction } = images[index]
     if (scrollAction) scrollAction(index)
 
@@ -125,6 +141,11 @@ class ImageList extends Component {
     images[i] && images[i].action && images[i].action()
   }
 
+  onClickWeb = () => {
+    const { activeIndex } = this.state
+    this.handlePress(activeIndex)()
+  }
+
   scrollViewRef = el => {
     this.scrollView = el
   }
@@ -141,6 +162,10 @@ class ImageList extends Component {
       dots,
       arrows,
     } = this.props
+
+    if (!images || typeof navigator.userAgent === undefined || !images[0]) {
+      return <View></View>
+    }
 
     let { activeIndex } = this.state
 
@@ -219,6 +244,7 @@ class ImageList extends Component {
         images={images}
         ref={this.scrollViewRef}
         clearAutoplay={this.clearAutoplay}
+        onClickWeb={this.onClickWeb}
       />
     )
 

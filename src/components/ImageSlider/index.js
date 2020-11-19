@@ -9,11 +9,9 @@ class ImageSlider extends Component {
     dots: {
       enabled: true,
       showDots: true,
-      position: "outside",
+      position: 'outside',
       rounding: 12,
     },
-    enableAutoplay: false,
-    autoplayTime: 3,
     arrows: {
       enabled: false,
       leftIcon: 'chevron-left',
@@ -26,6 +24,10 @@ class ImageSlider extends Component {
       enableBorder: false,
       borderSize: 3,
       borderColor: '#FFFFFF',
+    },
+    autoplay: {
+      enabled: false,
+      autoplayTime: 3,
     },
   }
 
@@ -60,14 +62,7 @@ class ImageSlider extends Component {
   render() {
     const { width, height } = this.getDimensions()
 
-    const {
-      images,
-      dots,
-      editor,
-      arrows,
-      enableAutoplay,
-      autoplayTime,
-    } = this.props
+    const { images, dots, editor, arrows, autoplay } = this.props
 
     if (width === null || height === null) {
       return <View style={styles.wrapper} onLayout={this.handleLayout} />
@@ -85,8 +80,7 @@ class ImageSlider extends Component {
           inactiveColor={dots.inactiveColor}
           arrows={arrows}
           dots={dots}
-          enableAutoplay={enableAutoplay}
-          autoplayTime={autoplayTime}
+          autoplay={autoplay}
         />
       </View>
     )

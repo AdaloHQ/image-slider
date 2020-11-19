@@ -7,13 +7,13 @@ import ImageScrollViewMobile from './ImageScrollView.js'
 
 const ImageScrollView = React.forwardRef((props, ref) => {
   const {
-    handlePress,
     editor,
     wrapperStyles,
     innerWrapper,
     images,
     handleSnap,
     clearAutoplay,
+    onClickWeb,
   } = props
 
   return (
@@ -23,13 +23,14 @@ const ImageScrollView = React.forwardRef((props, ref) => {
       ref={ref}
       onEndScroll={handleSnap}
       onStartScroll={clearAutoplay}
+      onClick={onClickWeb}
     >
       <View style={[styles.imageContainer, wrapperStyles]}>
         {!editor &&
-          images.map(({ id, image }, i) => (
-            <TouchableWithoutFeedback onPress={handlePress(i)}>
+          images.map(({ image }, i) => (
+            <TouchableWithoutFeedback key={i}>
               <View style={[styles.imageWrapper, innerWrapper]}>
-                <ImageItem key={id} image={image} />
+                <ImageItem image={image} />
               </View>
             </TouchableWithoutFeedback>
           ))}

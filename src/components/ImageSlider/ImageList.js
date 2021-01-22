@@ -297,6 +297,9 @@ class ImageList extends Component {
               backgroundColor={dots.backgroundColor}
               rounding={dots.rounding}
               textColor={dots.textColor}
+              bodyFont={
+                dots.styles && dots.styles.bodyFont ? dots.styles.bodyFont : {}
+              }
             />
           )}
         </View>

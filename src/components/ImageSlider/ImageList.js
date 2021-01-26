@@ -161,6 +161,7 @@ class ImageList extends Component {
       paddingBottom,
       dots,
       arrows,
+      _fonts,
     } = this.props
 
     if (!images || typeof navigator.userAgent === undefined || !images[0]) {
@@ -298,7 +299,11 @@ class ImageList extends Component {
               rounding={dots.rounding}
               textColor={dots.textColor}
               bodyFont={
-                dots.styles && dots.styles.bodyFont ? dots.styles.bodyFont : {}
+                dots.styles && dots.styles.bodyFont
+                  ? dots.styles.bodyFont
+                  : _fonts
+                  ? { fontFamily: _fonts.body }
+                  : {}
               }
             />
           )}

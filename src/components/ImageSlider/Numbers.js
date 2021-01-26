@@ -3,7 +3,14 @@ import { View, Text } from 'react-native'
 import styles from './Styles'
 
 export default function Numbers(props) {
-  const { count, activeIndex, backgroundColor, rounding, textColor } = props
+  const {
+    count,
+    activeIndex,
+    backgroundColor,
+    rounding,
+    textColor,
+    bodyFont,
+  } = props
   const viewStyle = {
     backgroundColor,
     borderRadius: rounding,
@@ -13,6 +20,7 @@ export default function Numbers(props) {
   }
   const textStyle = {
     color: textColor,
+    ...bodyFont,
   }
   return (
     <View style={styles.dotsWrapper}>

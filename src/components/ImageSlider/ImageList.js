@@ -101,7 +101,7 @@ class ImageList extends Component {
       autoplay: { enabled: enableAutoplay },
     } = this.props
     const { scrollAction } = images[index]
-    if (scrollAction) scrollAction(index)
+    if (typeof scrollAction === "function") scrollAction(index)
 
     this.setState({ activeIndex: index })
 

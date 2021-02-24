@@ -16,6 +16,20 @@ const ImageScrollView = React.forwardRef((props, ref) => {
     onClickWeb,
   } = props
 
+  if (images.length === 1) {
+    return (
+      <TouchableWithoutFeedback
+        onPress={() => {
+          images[0].action && images[0].action()
+        }}
+      >
+        <View style={[styles.imageWrapper, innerWrapper]}>
+          <ImageItem image={images[0].image} />
+        </View>
+      </TouchableWithoutFeedback>
+    )
+  }
+
   return (
     <ScrollContainer
       horizontal={true}

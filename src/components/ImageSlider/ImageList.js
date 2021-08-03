@@ -95,17 +95,19 @@ class ImageList extends Component {
   }
 
   scrollTo = (position, index, autoplay = false) => {
-    this.scrollView.scrollTo({ x: position, animated: true })
-    const {
-      images,
-      autoplay: { enabled: enableAutoplay },
-    } = this.props
-    const { scrollAction } = images[index]
-    if (typeof scrollAction === "function") scrollAction(index)
+    if (this.scrollView) {
+      this.scrollView.scrollTo({ x: position, animated: true })
+      const {
+        images,
+        autoplay: { enabled: enableAutoplay },
+      } = this.props
+      const { scrollAction } = images[index]
+      if (typeof scrollAction === 'function') scrollAction(index)
 
-    this.setState({ activeIndex: index })
+      this.setState({ activeIndex: index })
 
-    if (!autoplay && enableAutoplay) this.clearAutoplay()
+      if (!autoplay && enableAutoplay) this.clearAutoplay()
+    }
   }
 
   handleChange = (index, autoplay = false) => {

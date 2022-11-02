@@ -61,6 +61,17 @@ class ImageList extends Component {
     }
   }
 
+  isWebBrowser = () => {
+    if (
+      Platform.OS === 'web' ||
+      (Platform.OS !== 'ios' && Platform.OS !== 'android' && Platform.OS !== 'native')
+    ) {
+      return true
+    } else {
+      return false
+    }
+  }
+
   calculateIndex = offsetX => {
     let { containerWidth } = this.props
     let index = Math.round(offsetX / containerWidth)
@@ -224,7 +235,7 @@ class ImageList extends Component {
       />
     )
 
-    const imageScrollView = this.isMobileDevice() ? (
+    const imageScrollView = this.isMobileDevice() && !this.isWebBrowser() ? (
       <ImageScrollViewMobile
         handleScroll={this.handleScroll}
         handlePress={this.handlePress}

@@ -1,7 +1,7 @@
 {
   "name": "image-slider",
   "description": "Swipeable image slider",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "main": "index.js",
   "license": "ISC",
   "author": "Adalo",
@@ -10,25 +10,15 @@
     "login": "adalo login",
     "publish": "adalo publish"
   },
-  "adalo": {
-    "logo": "./logo.png",
-    "displayName": "Image Slider",
-    "components": [
-      {
-        "name": "ImageSlider",
-        "manifest": "./src/components/ImageSlider/manifest.json"
-      }
-    ]
-  },
   "devDependencies": {
-    "@adalo/cli": "^0.0.42",
-    "react": "^16.9.0",
-    "react-art": "^16.6.0",
-    "react-dom": "^16.9.0",
+    "@adalo/cli": "^0.0.57",
+    "react": "^16.13.1",
+    "react-art": "^16.13.1",
+    "react-dom": "^16.13.1",
     "react-native-web": "^0.9.5"
   },
   "dependencies": {
-    "@adalo/react-indiana-drag-scroll": "^1.7.0",
+    "@adalo/react-indiana-drag-scroll": "^1.7.1",
     "react-native-vector-icons": "^7.0.0"
   }
 }

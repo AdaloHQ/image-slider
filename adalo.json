@@ -1,0 +1,12 @@
+{
+  "author": "Adalo",
+  "description": "Swipeable image slider",
+  "logo": "./logo.png",
+  "displayName": "Image Slider",
+  "components": [
+    {
+      "name": "ImageSlider",
+      "manifest": "./src/components/ImageSlider/manifest.json"
+    }
+  ]
+}

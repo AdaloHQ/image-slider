@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { View, TouchableOpacity } from 'react-native'
-import Icon from 'react-native-vector-icons/MaterialIcons'
+import { TouchableOpacity } from 'react-native'
+import Icon from './Icon'
 import styles from './Styles'
 
 const HIT_SLOP = {

@@ -7,17 +7,10 @@ export const isURL = value =>
 const Icon = ({ name, size = 20, color }) => {
   if (isURL(name)) {
     return (
-      <span
-        style={{
-          width: size,
-          height: size,
-          backgroundColor: color,
-          maskImage: `url(${name})`,
-          maskSize: 'contain',
-          maskPosition: 'center',
-          maskRepeat: 'no-repeat',
-        }}
-      ></span>
+      <Image
+        source={{ uri: name }}
+        style={{ width: size, height: size, tintColor: color }}
+      />
     )
   }
 
